@@ -1,17 +1,24 @@
-﻿using System.Formats.Asn1;
-using System.Net;
-using System.Runtime.CompilerServices;
-
-Console.WriteLine("=== CSCI 1250 Lab 06 ===");
+﻿/*
+* Name: Z Bradford
+* Course: CSCI 1250, Section 201
+* Assignment: Lab 06, Three Short Problems
+* Date: October 24, 2026
+* Description: A menu that keeps running until the user quits, offering three
+* independent exercises or all three at once. Each exercise
+* practices decisions and one of the four loops.
+*/
 
 int choice = 0;
-
+Random rng = new Random(4000);
 //do while: they need to know the choices before they can make a desicion
 do
 {
+
 //do while: the info has the print out before the person can choose an onption within the parameters
 do
 {
+Console.WriteLine(" ");
+Console.WriteLine("=== CSCI 1250 Lab 06 ===");
 Console.WriteLine(" ");
 Console.WriteLine("1. The Grade Checker");
 Console.WriteLine("2. The Dice Table");
@@ -21,6 +28,7 @@ Console.WriteLine("5. Quit");
 Console.WriteLine(" ");
 
 Console.Write("Choose 1 through 5: ");
+
 choice = Convert.ToInt32(Console.ReadLine());
 Console.WriteLine(" ");
 } while(choice < 1 && choice > 5);
@@ -61,10 +69,10 @@ else if(score < 60)
 }
 if (choice == 2 || choice == 4)
 {
+
 Console.WriteLine("=== Exercise 2: The Dice Table ===");
 Console.WriteLine(" ");
 
-Random rng = new Random(4000);
 
 char answer = 'y';
 int count = 0;
@@ -78,6 +86,7 @@ count++;
  int rollOne = rng.Next(1, 7);
  int rollTwo = rng.Next(1, 7);
  int total = rollOne + rollTwo;
+
 if(rollOne == 1 && rollTwo == 1)
     {
         Console.WriteLine("Roll " + count + ": " + rollOne + " and " + rollTwo + ", total " + total + ". Snake eyes.");  
@@ -102,11 +111,57 @@ if(rollOne == 1 && rollTwo == 1)
     
 answer = Console.ReadLine().ToUpper()[0];
 } while(answer != 'N');
+
 Console.WriteLine("You rolled " + count + " times and won " + countWin + ".");
 }
+
 if (choice == 3 || choice == 4)
 {
-// Exercise 3
+Console.WriteLine("=== Exercise 3: The Score Report ===");
+Console.WriteLine(" ");
+string input = "0";
+int [] scores; 
+scores = new int[5];
+
+//for: we need to know the position of each value in the array, so we can determine the number of values
+for(int i = 0; i < scores.Length; i++)
+{
+Console.Write("Score " + (i + 1) + ": ");
+scores[i] = Convert.ToInt32(Console.ReadLine());
+}
+
+
+int total = 0;
+int highest = 0;
+int passing = 0;
+
+//for each: we need to make an operation happen with every single value in the array
+foreach(int value in scores)
+{
+    total += value;
+
+    if(value > highest)
+    {
+        highest = value;
+    }
+
+    if (value >= 60)
+    {
+        passing++;
+    }
+
+}
+
+//Calculations
+double average = Convert.ToDouble(total) / scores.Length;
+
+//Output
+Console.WriteLine(" ");
+Console.WriteLine("Scores entered: " + scores.Length);
+Console.WriteLine("Total: " + total); 
+Console.WriteLine("Average: " + average);
+Console.WriteLine("Highest: " + highest);
+Console.WriteLine("Passing: " + passing + " of " + scores.Length);
 }
 
 } while (choice != 5);
